@@ -1,6 +1,7 @@
-function main(){
 const buttons=document.getElementById("buttons"),
       display=document.getElementById("display");
+      
+function main(){
 
 let firstOperator=true,
     firstNumber=true,
@@ -18,7 +19,6 @@ buttons.addEventListener('click',(event)=>{
 
 window.addEventListener('keydown',(event)=>{
     let {key}=event;
-    console.log(key);
     calculate(key);
 })
 
@@ -27,7 +27,7 @@ window.addEventListener('keydown',(event)=>{
 function calculate(pressed){
     if("0123456789".includes(pressed)){
         if(showingResult){
-            display.innerText="";
+            show("");
             firstOperator=true;
             firstNumber=true;
             leftNumber="";
@@ -35,10 +35,10 @@ function calculate(pressed){
             showingResult=false;
         }
         if(firstNumber){
-            display.innerText+=pressed;
+            add(pressed);
             leftNumber+=pressed;}
         else{
-            display.innerText+=pressed;
+            add(pressed);
             rightNumber+=pressed;
         }
     }
@@ -49,7 +49,7 @@ function calculate(pressed){
             showingResult=false;
         }
         if(firstOperator){
-            display.innerText+=pressed;
+            add(pressed);
             currentOperator=pressed;
             firstOperator=false;
             firstNumber=false;
@@ -57,14 +57,14 @@ function calculate(pressed){
         else if(rightNumber){
             leftNumber=count(currentOperator,parseInt(leftNumber),parseInt(rightNumber));
             currentOperator=pressed;
-            display.innerText=leftNumber;
+            show(leftNumber);
             rightNumber="";
             firstOperator=true;
-            display.innerText+=pressed;
+            add(pressed);
         }
     }
     else if(pressed === "C" || pressed ==="Backspace"){
-        display.innerText="";
+        show("");
         firstOperator=true;
         firstNumber=true;
         leftNumber="";
@@ -76,7 +76,7 @@ function calculate(pressed){
         if(rightNumber&&(!firstOperator)){
             showingResult=true;
             leftNumber=count(currentOperator,parseInt(leftNumber),parseInt(rightNumber));
-            display.innerText=leftNumber;
+            show(leftNumber);
         }
     }
     }
@@ -102,5 +102,12 @@ function count(operator,leftNumber,rightNumber){
     return ""+result;
 }
 
+function show(text){
+    display.innerText=text;
+}
+
+function add(text){
+    display.innerText+=text;
+}
 
 main()
