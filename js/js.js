@@ -18,6 +18,7 @@ buttons.addEventListener('click',(event)=>{
 
 window.addEventListener('keydown',(event)=>{
     let {key}=event;
+    console.log(key);
     calculate(key);
 })
 
@@ -72,7 +73,7 @@ function calculate(pressed){
         currentOperator=""
     }
     else if(pressed === "=" || pressed ==="Enter"){
-        if(rightNumber){
+        if(rightNumber&&(!firstOperator)){
             showingResult=true;
             leftNumber=count(currentOperator,parseInt(leftNumber),parseInt(rightNumber));
             display.innerText=leftNumber;
