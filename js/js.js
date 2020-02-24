@@ -1,6 +1,6 @@
 const buttons=document.getElementById("buttons"),
       display=document.getElementById("display");
-      
+
 function main(){
 
 let firstOperator=true,
@@ -47,6 +47,7 @@ function calculate(pressed){
             firstOperator=true;
             rightNumber="";
             showingResult=false;
+            currentOperator="";
         }
         if(firstOperator){
             add(pressed);
@@ -59,7 +60,7 @@ function calculate(pressed){
             currentOperator=pressed;
             show(leftNumber);
             rightNumber="";
-            firstOperator=true;
+            firstOperator=false;
             add(pressed);
         }
     }
@@ -73,7 +74,7 @@ function calculate(pressed){
         currentOperator=""
     }
     else if(pressed === "=" || pressed ==="Enter"){
-        if(rightNumber&&(!firstOperator)){
+        if(rightNumber){
             showingResult=true;
             leftNumber=count(currentOperator,parseInt(leftNumber),parseInt(rightNumber));
             show(leftNumber);
